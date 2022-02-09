@@ -1,0 +1,3 @@
+[submodule "neurostore-spec"]
+	path = neurostore-spec
+	url = https://github.com/neurostuff/neurostore-spec.git
