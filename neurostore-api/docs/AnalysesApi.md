@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **analyses_get**
-> InlineResponse2001 analyses_get()
+> AnalysisList analyses_get()
 
 GET list of analyses
 
@@ -25,7 +25,7 @@ List all analyses performed across studies.
 import time
 import neurostore_api
 from neurostore_api.api import analyses_api
-from neurostore_api.model.inline_response2001 import InlineResponse2001
+from neurostore_api.model.analysis_list import AnalysisList
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
 # See configuration.py for a list of all supported configuration parameters.
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2001**](InlineResponse2001.md)
+[**AnalysisList**](AnalysisList.md)
 
 ### Authorization
 
@@ -169,7 +169,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **analyses_id_get**
-> bool, date, datetime, dict, float, int, list, str, none_type analyses_id_get(id)
+> AnalysisReturn analyses_id_get(id)
 
 GET an analysis
 
@@ -182,6 +182,7 @@ Information pertaining to a particular analysis within a study.
 import time
 import neurostore_api
 from neurostore_api.api import analyses_api
+from neurostore_api.model.analysis_return import AnalysisReturn
 from neurostore_api.model.inline_response404 import InlineResponse404
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
@@ -226,7 +227,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**bool, date, datetime, dict, float, int, list, str, none_type**
+[**AnalysisReturn**](AnalysisReturn.md)
 
 ### Authorization
 
@@ -248,7 +249,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **analyses_id_put**
-> analyses_id_put(id)
+> AnalysisReturn analyses_id_put(id)
 
 PUT/update an analysis
 
@@ -262,6 +263,7 @@ Update an existing analysis.
 import time
 import neurostore_api
 from neurostore_api.api import analyses_api
+from neurostore_api.model.analysis_return import AnalysisReturn
 from neurostore_api.model.analysis import Analysis
 from neurostore_api.model.inline_response422 import InlineResponse422
 from pprint import pprint
@@ -307,7 +309,8 @@ with neurostore_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # PUT/update an analysis
-        api_instance.analyses_id_put(id)
+        api_response = api_instance.analyses_id_put(id)
+        pprint(api_response)
     except neurostore_api.ApiException as e:
         print("Exception when calling AnalysesApi->analyses_id_put: %s\n" % e)
 
@@ -315,7 +318,8 @@ with neurostore_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # PUT/update an analysis
-        api_instance.analyses_id_put(id, analysis=analysis)
+        api_response = api_instance.analyses_id_put(id, analysis=analysis)
+        pprint(api_response)
     except neurostore_api.ApiException as e:
         print("Exception when calling AnalysesApi->analyses_id_put: %s\n" % e)
 ```
@@ -330,7 +334,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**AnalysisReturn**](AnalysisReturn.md)
 
 ### Authorization
 
@@ -352,7 +356,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **analyses_post**
-> analyses_post()
+> AnalysisReturn analyses_post()
 
 POST/create an analysis
 
@@ -366,6 +370,7 @@ create an analysis
 import time
 import neurostore_api
 from neurostore_api.api import analyses_api
+from neurostore_api.model.analysis_return import AnalysisReturn
 from neurostore_api.model.analysis import Analysis
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
@@ -410,7 +415,8 @@ with neurostore_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # POST/create an analysis
-        api_instance.analyses_post(analysis=analysis)
+        api_response = api_instance.analyses_post(analysis=analysis)
+        pprint(api_response)
     except neurostore_api.ApiException as e:
         print("Exception when calling AnalysesApi->analyses_post: %s\n" % e)
 ```
@@ -424,7 +430,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**AnalysisReturn**](AnalysisReturn.md)
 
 ### Authorization
 
@@ -433,7 +439,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 ### HTTP response details

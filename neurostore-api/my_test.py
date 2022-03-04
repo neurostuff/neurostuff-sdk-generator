@@ -1,13 +1,16 @@
 import neurostore_api
+from neurostore_api.api_client import ApiClient
 from neurostore_api.api import datasets_api
 
 configuration = neurostore_api.Configuration(
-    host = "http://localhost:80/api"
+    host = "https://neurostore.xyz/api"
 )
+
+client = ApiClient(configuration=configuration)
 
 dset_api = datasets_api.DatasetsApi()
 
-dsets = dset_api.datasets_get(nested=True)
+dsets = dset_api.get(nested=True)
 
 dsets.to_dict()
 

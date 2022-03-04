@@ -25,10 +25,16 @@ from neurostore_api.model_utils import (  # noqa: F401
     file_type,
     none_type,
     validate_get_composed_info,
+    OpenApiModel
 )
-from ..model_utils import OpenApiModel
 from neurostore_api.exceptions import ApiAttributeError
 
+
+def lazy_import():
+    from neurostore_api.model.point_value import PointValue
+    from neurostore_api.model.read_only import ReadOnly
+    globals()['PointValue'] = PointValue
+    globals()['ReadOnly'] = ReadOnly
 
 
 class Point(ModelNormal):
@@ -75,6 +81,7 @@ class Point(ModelNormal):
         This must be a method because a model may have properties that are
         of type self, this must run after the class is loaded
         """
+        lazy_import()
         return (bool, date, datetime, dict, float, int, list, str, none_type,)  # noqa: E501
 
     _nullable = False
@@ -89,6 +96,7 @@ class Point(ModelNormal):
             openapi_types (dict): The key is attribute name
                 and the value is attribute type.
         """
+        lazy_import()
         return {
             'coordinates': ([float],),  # noqa: E501
             'space': (str, none_type,),  # noqa: E501

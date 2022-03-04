@@ -10,7 +10,7 @@ For more information, please visit [https://github.com/jdkent](https://github.co
 
 ## Requirements.
 
-Python >= 3.6
+Python >=3.6
 
 ## Installation & Usage
 ### pip install
@@ -52,7 +52,8 @@ import neurostore_api
 from pprint import pprint
 from neurostore_api.api import analyses_api
 from neurostore_api.model.analysis import Analysis
-from neurostore_api.model.inline_response2001 import InlineResponse2001
+from neurostore_api.model.analysis_list import AnalysisList
+from neurostore_api.model.analysis_return import AnalysisReturn
 from neurostore_api.model.inline_response404 import InlineResponse404
 from neurostore_api.model.inline_response422 import InlineResponse422
 # Defining the host is optional and defaults to http://localhost:80/api
@@ -126,36 +127,45 @@ Class | Method | HTTP request | Description
 *StudiesApi* | [**studies_id_put**](docs/StudiesApi.md#studies_id_put) | **PUT** /studies/{id} | PUT/update a study
 *StudiesApi* | [**studies_post**](docs/StudiesApi.md#studies_post) | **POST** /studies/ | POST/create a study
 *UserApi* | [**users_get**](docs/UserApi.md#users_get) | **GET** /users/ | Your GET endpoint
+*UserApi* | [**users_id_get**](docs/UserApi.md#users_id_get) | **GET** /users/{id} | Individual User Profile
+*UserApi* | [**users_id_put**](docs/UserApi.md#users_id_put) | **PUT** /users/{id} | Update Individual Profile
 *UserApi* | [**users_post**](docs/UserApi.md#users_post) | **POST** /users/ | 
 
 
 ## Documentation For Models
 
  - [Analysis](docs/Analysis.md)
+ - [AnalysisList](docs/AnalysisList.md)
+ - [AnalysisReturn](docs/AnalysisReturn.md)
  - [Annotation](docs/Annotation.md)
  - [AnnotationExport](docs/AnnotationExport.md)
- - [AnnotationNotes](docs/AnnotationNotes.md)
+ - [AnnotationList](docs/AnnotationList.md)
+ - [AnnotationNote](docs/AnnotationNote.md)
+ - [AnnotationReturn](docs/AnnotationReturn.md)
  - [Condition](docs/Condition.md)
+ - [ConditionList](docs/ConditionList.md)
+ - [ConditionReturn](docs/ConditionReturn.md)
  - [Dataset](docs/Dataset.md)
+ - [DatasetList](docs/DatasetList.md)
+ - [DatasetReturn](docs/DatasetReturn.md)
  - [Image](docs/Image.md)
- - [InlineResponse200](docs/InlineResponse200.md)
- - [InlineResponse2001](docs/InlineResponse2001.md)
- - [InlineResponse2002](docs/InlineResponse2002.md)
- - [InlineResponse2003](docs/InlineResponse2003.md)
- - [InlineResponse2004](docs/InlineResponse2004.md)
- - [InlineResponse2005](docs/InlineResponse2005.md)
- - [InlineResponse2006](docs/InlineResponse2006.md)
- - [InlineResponse2007](docs/InlineResponse2007.md)
+ - [ImageList](docs/ImageList.md)
+ - [ImageReturn](docs/ImageReturn.md)
  - [InlineResponse404](docs/InlineResponse404.md)
  - [InlineResponse422](docs/InlineResponse422.md)
  - [JsonLd](docs/JsonLd.md)
  - [JsonLdContext](docs/JsonLdContext.md)
  - [Metadata](docs/Metadata.md)
  - [Point](docs/Point.md)
+ - [PointList](docs/PointList.md)
+ - [PointReturn](docs/PointReturn.md)
  - [PointValue](docs/PointValue.md)
  - [ReadOnly](docs/ReadOnly.md)
  - [Study](docs/Study.md)
+ - [StudyList](docs/StudyList.md)
+ - [StudyReturn](docs/StudyReturn.md)
  - [User](docs/User.md)
+ - [UserList](docs/UserList.md)
 
 
 ## Documentation For Authorization

@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **images_get**
-> InlineResponse2003 images_get()
+> ImageList images_get()
 
 GET a list of images
 
@@ -25,7 +25,7 @@ Retrieve and list images.
 import time
 import neurostore_api
 from neurostore_api.api import images_api
-from neurostore_api.model.inline_response2003 import InlineResponse2003
+from neurostore_api.model.image_list import ImageList
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
 # See configuration.py for a list of all supported configuration parameters.
@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2003**](InlineResponse2003.md)
+[**ImageList**](ImageList.md)
 
 ### Authorization
 
@@ -171,7 +171,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **images_id_get**
-> bool, date, datetime, dict, float, int, list, str, none_type images_id_get(id)
+> ImageReturn images_id_get(id)
 
 GET an image
 
@@ -184,6 +184,7 @@ Retrieve information about a particular image from an analysis.
 import time
 import neurostore_api
 from neurostore_api.api import images_api
+from neurostore_api.model.image_return import ImageReturn
 from neurostore_api.model.inline_response404 import InlineResponse404
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
@@ -217,7 +218,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**bool, date, datetime, dict, float, int, list, str, none_type**
+[**ImageReturn**](ImageReturn.md)
 
 ### Authorization
 
@@ -239,7 +240,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **images_id_put**
-> images_id_put(id)
+> ImageReturn images_id_put(id)
 
 PUT/update an image
 
@@ -253,6 +254,7 @@ Update a specific image.
 import time
 import neurostore_api
 from neurostore_api.api import images_api
+from neurostore_api.model.image_return import ImageReturn
 from neurostore_api.model.inline_response422 import InlineResponse422
 from neurostore_api.model.image import Image
 from pprint import pprint
@@ -289,7 +291,8 @@ with neurostore_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # PUT/update an image
-        api_instance.images_id_put(id)
+        api_response = api_instance.images_id_put(id)
+        pprint(api_response)
     except neurostore_api.ApiException as e:
         print("Exception when calling ImagesApi->images_id_put: %s\n" % e)
 
@@ -297,7 +300,8 @@ with neurostore_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # PUT/update an image
-        api_instance.images_id_put(id, image=image)
+        api_response = api_instance.images_id_put(id, image=image)
+        pprint(api_response)
     except neurostore_api.ApiException as e:
         print("Exception when calling ImagesApi->images_id_put: %s\n" % e)
 ```
@@ -312,7 +316,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**ImageReturn**](ImageReturn.md)
 
 ### Authorization
 
@@ -334,7 +338,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **images_post**
-> Image images_post()
+> ImageReturn images_post()
 
 POST/create an image
 
@@ -348,6 +352,7 @@ Create an image
 import time
 import neurostore_api
 from neurostore_api.api import images_api
+from neurostore_api.model.image_return import ImageReturn
 from neurostore_api.model.image import Image
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
@@ -398,7 +403,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Image**](Image.md)
+[**ImageReturn**](ImageReturn.md)
 
 ### Authorization
 

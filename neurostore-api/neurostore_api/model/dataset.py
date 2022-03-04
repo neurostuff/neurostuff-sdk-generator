@@ -25,10 +25,16 @@ from neurostore_api.model_utils import (  # noqa: F401
     file_type,
     none_type,
     validate_get_composed_info,
+    OpenApiModel
 )
-from ..model_utils import OpenApiModel
 from neurostore_api.exceptions import ApiAttributeError
 
+
+def lazy_import():
+    from neurostore_api.model.read_only import ReadOnly
+    from neurostore_api.model.study import Study
+    globals()['ReadOnly'] = ReadOnly
+    globals()['Study'] = Study
 
 
 class Dataset(ModelNormal):
@@ -67,6 +73,7 @@ class Dataset(ModelNormal):
         This must be a method because a model may have properties that are
         of type self, this must run after the class is loaded
         """
+        lazy_import()
         return (bool, date, datetime, dict, float, int, list, str, none_type,)  # noqa: E501
 
     _nullable = False
@@ -81,6 +88,7 @@ class Dataset(ModelNormal):
             openapi_types (dict): The key is attribute name
                 and the value is attribute type.
         """
+        lazy_import()
         return {
             'name': (str, none_type,),  # noqa: E501
             'description': (str, none_type,),  # noqa: E501
@@ -89,6 +97,7 @@ class Dataset(ModelNormal):
             'pmid': (str, none_type,),  # noqa: E501
             'studies': ([bool, date, datetime, dict, float, int, list, str, none_type],),  # noqa: E501
             'user': (str, none_type,),  # noqa: E501
+            'public': (bool,),  # noqa: E501
         }
 
     @cached_property
@@ -104,6 +113,7 @@ class Dataset(ModelNormal):
         'pmid': 'pmid',  # noqa: E501
         'studies': 'studies',  # noqa: E501
         'user': 'user',  # noqa: E501
+        'public': 'public',  # noqa: E501
     }
 
     read_only_vars = {
@@ -155,6 +165,7 @@ class Dataset(ModelNormal):
             pmid (str, none_type): [optional]  # noqa: E501
             studies ([bool, date, datetime, dict, float, int, list, str, none_type]): [optional]  # noqa: E501
             user (str, none_type): [optional]  # noqa: E501
+            public (bool): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -243,6 +254,7 @@ class Dataset(ModelNormal):
             pmid (str, none_type): [optional]  # noqa: E501
             studies ([bool, date, datetime, dict, float, int, list, str, none_type]): [optional]  # noqa: E501
             user (str, none_type): [optional]  # noqa: E501
+            public (bool): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

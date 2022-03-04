@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **conditions_get**
-> InlineResponse2004 conditions_get()
+> ConditionList conditions_get()
 
 GET Conditions
 
@@ -25,7 +25,7 @@ Get all conditions
 import time
 import neurostore_api
 from neurostore_api.api import conditions_api
-from neurostore_api.model.inline_response2004 import InlineResponse2004
+from neurostore_api.model.condition_list import ConditionList
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
 # See configuration.py for a list of all supported configuration parameters.
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2004**](InlineResponse2004.md)
+[**ConditionList**](ConditionList.md)
 
 ### Authorization
 
@@ -167,7 +167,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **conditions_id_get**
-> bool, date, datetime, dict, float, int, list, str, none_type conditions_id_get(id)
+> ConditionReturn conditions_id_get(id)
 
 GET a condition
 
@@ -180,6 +180,7 @@ Retrieve a condition (e.g., 2-back) that can be used in contrasts (e.g., 2-back 
 import time
 import neurostore_api
 from neurostore_api.api import conditions_api
+from neurostore_api.model.condition_return import ConditionReturn
 from neurostore_api.model.inline_response404 import InlineResponse404
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
@@ -213,7 +214,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**bool, date, datetime, dict, float, int, list, str, none_type**
+[**ConditionReturn**](ConditionReturn.md)
 
 ### Authorization
 
@@ -235,7 +236,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **conditions_id_put**
-> conditions_id_put(id)
+> ConditionReturn conditions_id_put(id)
 
 PUT/update a condition
 
@@ -250,6 +251,7 @@ import time
 import neurostore_api
 from neurostore_api.api import conditions_api
 from neurostore_api.model.condition import Condition
+from neurostore_api.model.condition_return import ConditionReturn
 from neurostore_api.model.inline_response422 import InlineResponse422
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
@@ -281,7 +283,8 @@ with neurostore_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # PUT/update a condition
-        api_instance.conditions_id_put(id)
+        api_response = api_instance.conditions_id_put(id)
+        pprint(api_response)
     except neurostore_api.ApiException as e:
         print("Exception when calling ConditionsApi->conditions_id_put: %s\n" % e)
 
@@ -289,7 +292,8 @@ with neurostore_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # PUT/update a condition
-        api_instance.conditions_id_put(id, condition=condition)
+        api_response = api_instance.conditions_id_put(id, condition=condition)
+        pprint(api_response)
     except neurostore_api.ApiException as e:
         print("Exception when calling ConditionsApi->conditions_id_put: %s\n" % e)
 ```
@@ -304,7 +308,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**ConditionReturn**](ConditionReturn.md)
 
 ### Authorization
 
@@ -326,7 +330,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **conditions_post**
-> Condition conditions_post()
+> ConditionReturn conditions_post()
 
 POST/Create a condition
 
@@ -341,6 +345,7 @@ import time
 import neurostore_api
 from neurostore_api.api import conditions_api
 from neurostore_api.model.condition import Condition
+from neurostore_api.model.condition_return import ConditionReturn
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
 # See configuration.py for a list of all supported configuration parameters.
@@ -386,7 +391,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Condition**](Condition.md)
+[**ConditionReturn**](ConditionReturn.md)
 
 ### Authorization
 

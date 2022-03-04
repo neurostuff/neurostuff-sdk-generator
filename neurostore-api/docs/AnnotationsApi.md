@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **annotations_get**
-> InlineResponse2007 annotations_get()
+> AnnotationList annotations_get()
 
 Your GET endpoint
 
@@ -25,7 +25,7 @@ get annotations for an available dataset
 import time
 import neurostore_api
 from neurostore_api.api import annotations_api
-from neurostore_api.model.inline_response2007 import InlineResponse2007
+from neurostore_api.model.annotation_list import AnnotationList
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
 # See configuration.py for a list of all supported configuration parameters.
@@ -59,7 +59,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2007**](InlineResponse2007.md)
+[**AnnotationList**](AnnotationList.md)
 
 ### Authorization
 
@@ -155,7 +155,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **annotations_id_get**
-> bool, date, datetime, dict, float, int, list, str, none_type annotations_id_get(id)
+> AnnotationReturn annotations_id_get(id)
 
 Your GET endpoint
 
@@ -168,6 +168,7 @@ get an individual annotation
 import time
 import neurostore_api
 from neurostore_api.api import annotations_api
+from neurostore_api.model.annotation_return import AnnotationReturn
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
 # See configuration.py for a list of all supported configuration parameters.
@@ -211,7 +212,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**bool, date, datetime, dict, float, int, list, str, none_type**
+[**AnnotationReturn**](AnnotationReturn.md)
 
 ### Authorization
 
@@ -232,7 +233,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **annotations_id_put**
-> Annotation annotations_id_put(id)
+> AnnotationReturn annotations_id_put(id)
 
 Update an annotation
 
@@ -247,6 +248,7 @@ import time
 import neurostore_api
 from neurostore_api.api import annotations_api
 from neurostore_api.model.annotation import Annotation
+from neurostore_api.model.annotation_return import AnnotationReturn
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
 # See configuration.py for a list of all supported configuration parameters.
@@ -269,11 +271,34 @@ with neurostore_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = annotations_api.AnnotationsApi(api_client)
     id = "id_example" # str | 
+    annotation = Annotation(
+        dataset="dataset_example",
+        name="name_example",
+        description="description_example",
+        notes=[
+            None,
+        ],
+        source="source_example",
+        source_id="source_id_example",
+        source_updated_at="source_updated_at_example",
+        metadata={},
+        public=True,
+        note_keys={},
+    ) # Annotation |  (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Update an annotation
         api_response = api_instance.annotations_id_put(id)
+        pprint(api_response)
+    except neurostore_api.ApiException as e:
+        print("Exception when calling AnnotationsApi->annotations_id_put: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Update an annotation
+        api_response = api_instance.annotations_id_put(id, annotation=annotation)
         pprint(api_response)
     except neurostore_api.ApiException as e:
         print("Exception when calling AnnotationsApi->annotations_id_put: %s\n" % e)
@@ -285,10 +310,11 @@ with neurostore_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**|  |
+ **annotation** | [**Annotation**](Annotation.md)|  | [optional]
 
 ### Return type
 
-[**Annotation**](Annotation.md)
+[**AnnotationReturn**](AnnotationReturn.md)
 
 ### Authorization
 
@@ -296,7 +322,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 
@@ -309,7 +335,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **annotations_post**
-> Annotation annotations_post()
+> AnnotationReturn annotations_post()
 
 Post Annotation
 
@@ -324,6 +350,7 @@ import time
 import neurostore_api
 from neurostore_api.api import annotations_api
 from neurostore_api.model.annotation import Annotation
+from neurostore_api.model.annotation_return import AnnotationReturn
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
 # See configuration.py for a list of all supported configuration parameters.
@@ -347,12 +374,26 @@ with neurostore_api.ApiClient(configuration) as api_client:
     api_instance = annotations_api.AnnotationsApi(api_client)
     source = "neurostore" # str | the source of the resource you would like to filter/copy from (optional) if omitted the server will use the default value of "neurostore"
     source_id = "1234567890ab" # str | id of the resource you are either filtering/copying on (optional)
+    annotation = Annotation(
+        dataset="dataset_example",
+        name="name_example",
+        description="description_example",
+        notes=[
+            None,
+        ],
+        source="source_example",
+        source_id="source_id_example",
+        source_updated_at="source_updated_at_example",
+        metadata={},
+        public=True,
+        note_keys={},
+    ) # Annotation |  (optional)
 
     # example passing only required values which don't have defaults set
     # and optional values
     try:
         # Post Annotation
-        api_response = api_instance.annotations_post(source=source, source_id=source_id)
+        api_response = api_instance.annotations_post(source=source, source_id=source_id, annotation=annotation)
         pprint(api_response)
     except neurostore_api.ApiException as e:
         print("Exception when calling AnnotationsApi->annotations_post: %s\n" % e)
@@ -365,10 +406,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **source** | **str**| the source of the resource you would like to filter/copy from | [optional] if omitted the server will use the default value of "neurostore"
  **source_id** | **str**| id of the resource you are either filtering/copying on | [optional]
+ **annotation** | [**Annotation**](Annotation.md)|  | [optional]
 
 ### Return type
 
-[**Annotation**](Annotation.md)
+[**AnnotationReturn**](AnnotationReturn.md)
 
 ### Authorization
 
@@ -376,7 +418,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 

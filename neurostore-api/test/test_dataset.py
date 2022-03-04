@@ -13,6 +13,10 @@ import sys
 import unittest
 
 import neurostore_api
+from neurostore_api.model.read_only import ReadOnly
+from neurostore_api.model.study import Study
+globals()['ReadOnly'] = ReadOnly
+globals()['Study'] = Study
 from neurostore_api.model.dataset import Dataset
 
 

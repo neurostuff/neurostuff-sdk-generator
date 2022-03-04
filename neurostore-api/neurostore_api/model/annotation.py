@@ -25,14 +25,16 @@ from neurostore_api.model_utils import (  # noqa: F401
     file_type,
     none_type,
     validate_get_composed_info,
+    OpenApiModel
 )
-from ..model_utils import OpenApiModel
 from neurostore_api.exceptions import ApiAttributeError
 
 
 def lazy_import():
-    from neurostore_api.model.annotation_notes import AnnotationNotes
-    globals()['AnnotationNotes'] = AnnotationNotes
+    from neurostore_api.model.annotation_note import AnnotationNote
+    from neurostore_api.model.read_only import ReadOnly
+    globals()['AnnotationNote'] = AnnotationNote
+    globals()['ReadOnly'] = ReadOnly
 
 
 class Annotation(ModelNormal):
@@ -91,11 +93,13 @@ class Annotation(ModelNormal):
             'dataset': (str,),  # noqa: E501
             'name': (str,),  # noqa: E501
             'description': (str, none_type,),  # noqa: E501
-            'notes': ([AnnotationNotes],),  # noqa: E501
+            'notes': ([bool, date, datetime, dict, float, int, list, str, none_type],),  # noqa: E501
             'source': (str, none_type,),  # noqa: E501
             'source_id': (str, none_type,),  # noqa: E501
             'source_updated_at': (str, none_type,),  # noqa: E501
             'metadata': ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}, none_type,),  # noqa: E501
+            'public': (bool,),  # noqa: E501
+            'note_keys': ({str: (bool, date, datetime, dict, float, int, list, str, none_type)},),  # noqa: E501
         }
 
     @cached_property
@@ -112,6 +116,8 @@ class Annotation(ModelNormal):
         'source_id': 'source_id',  # noqa: E501
         'source_updated_at': 'source_updated_at',  # noqa: E501
         'metadata': 'metadata',  # noqa: E501
+        'public': 'public',  # noqa: E501
+        'note_keys': 'note_keys',  # noqa: E501
     }
 
     read_only_vars = {
@@ -158,11 +164,13 @@ class Annotation(ModelNormal):
             dataset (str): [optional]  # noqa: E501
             name (str): [optional]  # noqa: E501
             description (str, none_type): [optional]  # noqa: E501
-            notes ([AnnotationNotes]): [optional]  # noqa: E501
+            notes ([bool, date, datetime, dict, float, int, list, str, none_type]): [optional]  # noqa: E501
             source (str, none_type): [optional]  # noqa: E501
             source_id (str, none_type): [optional]  # noqa: E501
             source_updated_at (str, none_type): [optional]  # noqa: E501
             metadata ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}, none_type): [optional]  # noqa: E501
+            public (bool): [optional]  # noqa: E501
+            note_keys ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -247,11 +255,13 @@ class Annotation(ModelNormal):
             dataset (str): [optional]  # noqa: E501
             name (str): [optional]  # noqa: E501
             description (str, none_type): [optional]  # noqa: E501
-            notes ([AnnotationNotes]): [optional]  # noqa: E501
+            notes ([bool, date, datetime, dict, float, int, list, str, none_type]): [optional]  # noqa: E501
             source (str, none_type): [optional]  # noqa: E501
             source_id (str, none_type): [optional]  # noqa: E501
             source_updated_at (str, none_type): [optional]  # noqa: E501
             metadata ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}, none_type): [optional]  # noqa: E501
+            public (bool): [optional]  # noqa: E501
+            note_keys ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

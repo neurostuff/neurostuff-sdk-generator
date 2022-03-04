@@ -22,10 +22,11 @@ from neurostore_api.model_utils import (  # noqa: F401
     none_type,
     validate_and_convert_types
 )
-from neurostore_api.model.inline_response200 import InlineResponse200
 from neurostore_api.model.inline_response404 import InlineResponse404
 from neurostore_api.model.inline_response422 import InlineResponse422
 from neurostore_api.model.study import Study
+from neurostore_api.model.study_list import StudyList
+from neurostore_api.model.study_return import StudyReturn
 
 
 class StudiesApi(object):
@@ -41,7 +42,7 @@ class StudiesApi(object):
         self.api_client = api_client
         self.studies_get_endpoint = _Endpoint(
             settings={
-                'response_type': (InlineResponse200,),
+                'response_type': (StudyList,),
                 'auth': [
                     'JSON-Web-Token'
                 ],
@@ -65,12 +66,14 @@ class StudiesApi(object):
                     'source',
                     'authors',
                     'user_id',
+                    'data_type',
                 ],
                 'required': [],
                 'nullable': [
                 ],
                 'enum': [
                     'source',
+                    'data_type',
                 ],
                 'validation': [
                     'search',
@@ -103,6 +106,12 @@ class StudiesApi(object):
                         "NEUROSYNTH": "neurosynth",
                         "NEUROQUERY": "neuroquery"
                     },
+                    ('data_type',): {
+
+                        "COORDINATE": "coordinate",
+                        "IMAGE": "image",
+                        "BOTH": "both"
+                    },
                 },
                 'openapi_types': {
                     'search':
@@ -131,6 +140,8 @@ class StudiesApi(object):
                         (str,),
                     'user_id':
                         (str,),
+                    'data_type':
+                        (str,),
                 },
                 'attribute_map': {
                     'search': 'search',
@@ -146,6 +157,7 @@ class StudiesApi(object):
                     'source': 'source',
                     'authors': 'authors',
                     'user_id': 'user_id',
+                    'data_type': 'data_type',
                 },
                 'location_map': {
                     'search': 'query',
@@ -161,6 +173,7 @@ class StudiesApi(object):
                     'source': 'query',
                     'authors': 'query',
                     'user_id': 'query',
+                    'data_type': 'query',
                 },
                 'collection_format_map': {
                 }
@@ -224,7 +237,7 @@ class StudiesApi(object):
         )
         self.studies_id_get_endpoint = _Endpoint(
             settings={
-                'response_type': (bool, date, datetime, dict, float, int, list, str, none_type,),
+                'response_type': (StudyReturn,),
                 'auth': [],
                 'endpoint_path': '/studies/{id}',
                 'operation_id': 'studies_id_get',
@@ -278,7 +291,7 @@ class StudiesApi(object):
         )
         self.studies_id_put_endpoint = _Endpoint(
             settings={
-                'response_type': None,
+                'response_type': (StudyReturn,),
                 'auth': [
                     'JSON-Web-Token'
                 ],
@@ -335,7 +348,7 @@ class StudiesApi(object):
         )
         self.studies_post_endpoint = _Endpoint(
             settings={
-                'response_type': (Study,),
+                'response_type': (StudyReturn,),
                 'auth': [
                     'JSON-Web-Token'
                 ],
@@ -403,7 +416,7 @@ class StudiesApi(object):
             api_client=api_client
         )
 
-    def studies_get(
+    def get(
         self,
         **kwargs
     ):
@@ -431,6 +444,7 @@ class StudiesApi(object):
             source (str): the source of the resource you would like to filter/copy from. [optional] if omitted the server will use the default value of "neurostore"
             authors (str): search authors. [optional]
             user_id (str): user id you want to filter by. [optional]
+            data_type (str): whether searching for studies that contain coordinates, images, or both. [optional]
             _return_http_data_only (bool): response data without head status
                 code and headers. Default is True.
             _preload_content (bool): if False, the urllib3.HTTPResponse object
@@ -446,13 +460,20 @@ class StudiesApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
             async_req (bool): execute request asynchronously
 
         Returns:
-            InlineResponse200
+            StudyList
                 If the method is called asynchronously, returns the request
                 thread.
         """
@@ -474,10 +495,15 @@ class StudiesApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
         return self.studies_get_endpoint.call_with_http_info(**kwargs)
 
-    def studies_id_delete(
+    def delete_id(
         self,
         id,
         **kwargs
@@ -510,6 +536,13 @@ class StudiesApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
@@ -538,12 +571,17 @@ class StudiesApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
         kwargs['id'] = \
             id
         return self.studies_id_delete_endpoint.call_with_http_info(**kwargs)
 
-    def studies_id_get(
+    def get_id(
         self,
         id,
         **kwargs
@@ -577,13 +615,20 @@ class StudiesApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
             async_req (bool): execute request asynchronously
 
         Returns:
-            bool, date, datetime, dict, float, int, list, str, none_type
+            StudyReturn
                 If the method is called asynchronously, returns the request
                 thread.
         """
@@ -605,12 +650,17 @@ class StudiesApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
         kwargs['id'] = \
             id
         return self.studies_id_get_endpoint.call_with_http_info(**kwargs)
 
-    def studies_id_put(
+    def put_id(
         self,
         id,
         **kwargs
@@ -644,13 +694,20 @@ class StudiesApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
             async_req (bool): execute request asynchronously
 
         Returns:
-            None
+            StudyReturn
                 If the method is called asynchronously, returns the request
                 thread.
         """
@@ -672,12 +729,17 @@ class StudiesApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
         kwargs['id'] = \
             id
         return self.studies_id_put_endpoint.call_with_http_info(**kwargs)
 
-    def studies_post(
+    def post(
         self,
         **kwargs
     ):
@@ -710,13 +772,20 @@ class StudiesApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
             async_req (bool): execute request asynchronously
 
         Returns:
-            Study
+            StudyReturn
                 If the method is called asynchronously, returns the request
                 thread.
         """
@@ -738,6 +807,11 @@ class StudiesApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
         return self.studies_post_endpoint.call_with_http_info(**kwargs)
 

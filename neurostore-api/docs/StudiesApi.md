@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **studies_get**
-> InlineResponse200 studies_get()
+> StudyList studies_get()
 
 GET a list of studies
 
@@ -26,7 +26,7 @@ List studies
 import time
 import neurostore_api
 from neurostore_api.api import studies_api
-from neurostore_api.model.inline_response200 import InlineResponse200
+from neurostore_api.model.study_list import StudyList
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
 # See configuration.py for a list of all supported configuration parameters.
@@ -61,12 +61,13 @@ with neurostore_api.ApiClient(configuration) as api_client:
     source = "neurostore" # str | the source of the resource you would like to filter/copy from (optional) if omitted the server will use the default value of "neurostore"
     authors = "authors_example" # str | search authors (optional)
     user_id = "user_id_example" # str | user id you want to filter by (optional)
+    data_type = "coordinate" # str | whether searching for studies that contain coordinates, images, or both (optional)
 
     # example passing only required values which don't have defaults set
     # and optional values
     try:
         # GET a list of studies
-        api_response = api_instance.studies_get(search=search, sort=sort, page=page, desc=desc, page_size=page_size, nested=nested, name=name, description=description, source_id=source_id, unique=unique, source=source, authors=authors, user_id=user_id)
+        api_response = api_instance.studies_get(search=search, sort=sort, page=page, desc=desc, page_size=page_size, nested=nested, name=name, description=description, source_id=source_id, unique=unique, source=source, authors=authors, user_id=user_id, data_type=data_type)
         pprint(api_response)
     except neurostore_api.ApiException as e:
         print("Exception when calling StudiesApi->studies_get: %s\n" % e)
@@ -90,10 +91,11 @@ Name | Type | Description  | Notes
  **source** | **str**| the source of the resource you would like to filter/copy from | [optional] if omitted the server will use the default value of "neurostore"
  **authors** | **str**| search authors | [optional]
  **user_id** | **str**| user id you want to filter by | [optional]
+ **data_type** | **str**| whether searching for studies that contain coordinates, images, or both | [optional]
 
 ### Return type
 
-[**InlineResponse200**](InlineResponse200.md)
+[**StudyList**](StudyList.md)
 
 ### Authorization
 
@@ -189,7 +191,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **studies_id_get**
-> bool, date, datetime, dict, float, int, list, str, none_type studies_id_get(id)
+> StudyReturn studies_id_get(id)
 
 GET a study
 
@@ -202,6 +204,7 @@ Get a study.
 import time
 import neurostore_api
 from neurostore_api.api import studies_api
+from neurostore_api.model.study_return import StudyReturn
 from neurostore_api.model.inline_response404 import InlineResponse404
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
@@ -246,7 +249,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**bool, date, datetime, dict, float, int, list, str, none_type**
+[**StudyReturn**](StudyReturn.md)
 
 ### Authorization
 
@@ -268,7 +271,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **studies_id_put**
-> studies_id_put(id)
+> StudyReturn studies_id_put(id)
 
 PUT/update a study
 
@@ -282,6 +285,7 @@ Update a study.
 import time
 import neurostore_api
 from neurostore_api.api import studies_api
+from neurostore_api.model.study_return import StudyReturn
 from neurostore_api.model.inline_response422 import InlineResponse422
 from neurostore_api.model.study import Study
 from pprint import pprint
@@ -321,12 +325,14 @@ with neurostore_api.ApiClient(configuration) as api_client:
         source="source_example",
         source_id="source_id_example",
         source_updated_at="source_updated_at_example",
+        year=1,
     ) # Study |  (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # PUT/update a study
-        api_instance.studies_id_put(id)
+        api_response = api_instance.studies_id_put(id)
+        pprint(api_response)
     except neurostore_api.ApiException as e:
         print("Exception when calling StudiesApi->studies_id_put: %s\n" % e)
 
@@ -334,7 +340,8 @@ with neurostore_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # PUT/update a study
-        api_instance.studies_id_put(id, study=study)
+        api_response = api_instance.studies_id_put(id, study=study)
+        pprint(api_response)
     except neurostore_api.ApiException as e:
         print("Exception when calling StudiesApi->studies_id_put: %s\n" % e)
 ```
@@ -349,7 +356,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**StudyReturn**](StudyReturn.md)
 
 ### Authorization
 
@@ -371,7 +378,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **studies_post**
-> Study studies_post()
+> StudyReturn studies_post()
 
 POST/create a study
 
@@ -385,6 +392,7 @@ Create a study
 import time
 import neurostore_api
 from neurostore_api.api import studies_api
+from neurostore_api.model.study_return import StudyReturn
 from neurostore_api.model.study import Study
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
@@ -424,6 +432,7 @@ with neurostore_api.ApiClient(configuration) as api_client:
         source="source_example",
         source_id="source_id_example",
         source_updated_at="source_updated_at_example",
+        year=1,
     ) # Study |  (optional)
 
     # example passing only required values which don't have defaults set
@@ -447,7 +456,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Study**](Study.md)
+[**StudyReturn**](StudyReturn.md)
 
 ### Authorization
 

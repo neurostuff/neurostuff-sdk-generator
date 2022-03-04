@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **points_get**
-> InlineResponse2002 points_get()
+> PointList points_get()
 
 Get Points
 
@@ -25,7 +25,7 @@ list points in database
 import time
 import neurostore_api
 from neurostore_api.api import points_api
-from neurostore_api.model.inline_response2002 import InlineResponse2002
+from neurostore_api.model.point_list import PointList
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
 # See configuration.py for a list of all supported configuration parameters.
@@ -54,7 +54,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**InlineResponse2002**](InlineResponse2002.md)
+[**PointList**](PointList.md)
 
 ### Authorization
 
@@ -150,7 +150,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **points_id_get**
-> bool, date, datetime, dict, float, int, list, str, none_type points_id_get(id)
+> PointReturn points_id_get(id)
 
 GET a point
 
@@ -163,6 +163,7 @@ Information about a particular MRI coordinate
 import time
 import neurostore_api
 from neurostore_api.api import points_api
+from neurostore_api.model.point_return import PointReturn
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
 # See configuration.py for a list of all supported configuration parameters.
@@ -195,7 +196,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**bool, date, datetime, dict, float, int, list, str, none_type**
+[**PointReturn**](PointReturn.md)
 
 ### Authorization
 
@@ -217,7 +218,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **points_id_put**
-> points_id_put(id)
+> PointReturn points_id_put(id)
 
 PUT/update a point
 
@@ -232,6 +233,7 @@ import time
 import neurostore_api
 from neurostore_api.api import points_api
 from neurostore_api.model.point import Point
+from neurostore_api.model.point_return import PointReturn
 from neurostore_api.model.inline_response422 import InlineResponse422
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
@@ -275,7 +277,8 @@ with neurostore_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # PUT/update a point
-        api_instance.points_id_put(id)
+        api_response = api_instance.points_id_put(id)
+        pprint(api_response)
     except neurostore_api.ApiException as e:
         print("Exception when calling PointsApi->points_id_put: %s\n" % e)
 
@@ -283,7 +286,8 @@ with neurostore_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # PUT/update a point
-        api_instance.points_id_put(id, point=point)
+        api_response = api_instance.points_id_put(id, point=point)
+        pprint(api_response)
     except neurostore_api.ApiException as e:
         print("Exception when calling PointsApi->points_id_put: %s\n" % e)
 ```
@@ -298,7 +302,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**PointReturn**](PointReturn.md)
 
 ### Authorization
 
@@ -320,7 +324,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **points_post**
-> Point points_post()
+> PointReturn points_post()
 
 POST Points
 
@@ -335,6 +339,7 @@ import time
 import neurostore_api
 from neurostore_api.api import points_api
 from neurostore_api.model.point import Point
+from neurostore_api.model.point_return import PointReturn
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
 # See configuration.py for a list of all supported configuration parameters.
@@ -392,7 +397,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Point**](Point.md)
+[**PointReturn**](PointReturn.md)
 
 ### Authorization
 

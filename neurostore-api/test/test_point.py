@@ -13,6 +13,10 @@ import sys
 import unittest
 
 import neurostore_api
+from neurostore_api.model.point_value import PointValue
+from neurostore_api.model.read_only import ReadOnly
+globals()['PointValue'] = PointValue
+globals()['ReadOnly'] = ReadOnly
 from neurostore_api.model.point import Point
 
 

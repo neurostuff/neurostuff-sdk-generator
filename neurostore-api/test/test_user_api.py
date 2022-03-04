@@ -31,6 +31,20 @@ class TestUserApi(unittest.TestCase):
         """
         pass
 
+    def test_users_id_get(self):
+        """Test case for users_id_get
+
+        Individual User Profile  # noqa: E501
+        """
+        pass
+
+    def test_users_id_put(self):
+        """Test case for users_id_put
+
+        Update Individual Profile  # noqa: E501
+        """
+        pass
+
     def test_users_post(self):
         """Test case for users_post
 

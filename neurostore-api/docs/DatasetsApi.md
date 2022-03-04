@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **datasets_get**
-> InlineResponse2005 datasets_get()
+> DatasetList datasets_get()
 
 GET a list of datasets
 
@@ -26,7 +26,7 @@ Get a list of datasets.
 import time
 import neurostore_api
 from neurostore_api.api import datasets_api
-from neurostore_api.model.inline_response2005 import InlineResponse2005
+from neurostore_api.model.dataset_list import DatasetList
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
 # See configuration.py for a list of all supported configuration parameters.
@@ -93,7 +93,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2005**](InlineResponse2005.md)
+[**DatasetList**](DatasetList.md)
 
 ### Authorization
 
@@ -189,7 +189,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **datasets_id_get**
-> bool, date, datetime, dict, float, int, list, str, none_type datasets_id_get(id)
+> DatasetReturn datasets_id_get(id)
 
 GET a dataset
 
@@ -202,6 +202,7 @@ Retrieve the information of a dataset with the matching dataset ID.
 import time
 import neurostore_api
 from neurostore_api.api import datasets_api
+from neurostore_api.model.dataset_return import DatasetReturn
 from neurostore_api.model.inline_response404 import InlineResponse404
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
@@ -246,7 +247,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**bool, date, datetime, dict, float, int, list, str, none_type**
+[**DatasetReturn**](DatasetReturn.md)
 
 ### Authorization
 
@@ -268,7 +269,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **datasets_id_put**
-> datasets_id_put(id)
+> DatasetReturn datasets_id_put(id)
 
 PUT/update a dataset
 
@@ -283,6 +284,7 @@ import time
 import neurostore_api
 from neurostore_api.api import datasets_api
 from neurostore_api.model.dataset import Dataset
+from neurostore_api.model.dataset_return import DatasetReturn
 from neurostore_api.model.inline_response422 import InlineResponse422
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
@@ -315,12 +317,14 @@ with neurostore_api.ApiClient(configuration) as api_client:
         studies=[
             None,
         ],
+        public=True,
     ) # Dataset |  (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # PUT/update a dataset
-        api_instance.datasets_id_put(id)
+        api_response = api_instance.datasets_id_put(id)
+        pprint(api_response)
     except neurostore_api.ApiException as e:
         print("Exception when calling DatasetsApi->datasets_id_put: %s\n" % e)
 
@@ -328,7 +332,8 @@ with neurostore_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # PUT/update a dataset
-        api_instance.datasets_id_put(id, dataset=dataset)
+        api_response = api_instance.datasets_id_put(id, dataset=dataset)
+        pprint(api_response)
     except neurostore_api.ApiException as e:
         print("Exception when calling DatasetsApi->datasets_id_put: %s\n" % e)
 ```
@@ -343,7 +348,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**DatasetReturn**](DatasetReturn.md)
 
 ### Authorization
 
@@ -365,7 +370,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **datasets_post**
-> Dataset datasets_post()
+> DatasetReturn datasets_post()
 
 POST/create a dataset
 
@@ -380,6 +385,7 @@ import time
 import neurostore_api
 from neurostore_api.api import datasets_api
 from neurostore_api.model.dataset import Dataset
+from neurostore_api.model.dataset_return import DatasetReturn
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost:80/api
 # See configuration.py for a list of all supported configuration parameters.
@@ -401,11 +407,23 @@ configuration = neurostore_api.Configuration(
 with neurostore_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = datasets_api.DatasetsApi(api_client)
+    dataset = Dataset(
+        name="name_example",
+        description="description_example",
+        publication="publication_example",
+        doi="doi_example",
+        pmid="pmid_example",
+        studies=[
+            None,
+        ],
+        public=True,
+    ) # Dataset |  (optional)
 
-    # example, this endpoint has no required or optional parameters
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # POST/create a dataset
-        api_response = api_instance.datasets_post()
+        api_response = api_instance.datasets_post(dataset=dataset)
         pprint(api_response)
     except neurostore_api.ApiException as e:
         print("Exception when calling DatasetsApi->datasets_post: %s\n" % e)
@@ -413,11 +431,14 @@ with neurostore_api.ApiClient(configuration) as api_client:
 
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **dataset** | [**Dataset**](Dataset.md)|  | [optional]
 
 ### Return type
 
-[**Dataset**](Dataset.md)
+[**DatasetReturn**](DatasetReturn.md)
 
 ### Authorization
 
@@ -425,7 +446,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 

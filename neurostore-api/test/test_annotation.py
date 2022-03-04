@@ -13,8 +13,10 @@ import sys
 import unittest
 
 import neurostore_api
-from neurostore_api.model.annotation_notes import AnnotationNotes
-globals()['AnnotationNotes'] = AnnotationNotes
+from neurostore_api.model.annotation_note import AnnotationNote
+from neurostore_api.model.read_only import ReadOnly
+globals()['AnnotationNote'] = AnnotationNote
+globals()['ReadOnly'] = ReadOnly
 from neurostore_api.model.annotation import Annotation
 
 

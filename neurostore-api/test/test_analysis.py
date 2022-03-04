@@ -13,6 +13,14 @@ import sys
 import unittest
 
 import neurostore_api
+from neurostore_api.model.condition import Condition
+from neurostore_api.model.image import Image
+from neurostore_api.model.point import Point
+from neurostore_api.model.read_only import ReadOnly
+globals()['Condition'] = Condition
+globals()['Image'] = Image
+globals()['Point'] = Point
+globals()['ReadOnly'] = ReadOnly
 from neurostore_api.model.analysis import Analysis
 
 

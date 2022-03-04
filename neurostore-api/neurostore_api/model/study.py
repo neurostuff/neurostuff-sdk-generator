@@ -25,10 +25,16 @@ from neurostore_api.model_utils import (  # noqa: F401
     file_type,
     none_type,
     validate_get_composed_info,
+    OpenApiModel
 )
-from ..model_utils import OpenApiModel
 from neurostore_api.exceptions import ApiAttributeError
 
+
+def lazy_import():
+    from neurostore_api.model.analysis import Analysis
+    from neurostore_api.model.read_only import ReadOnly
+    globals()['Analysis'] = Analysis
+    globals()['ReadOnly'] = ReadOnly
 
 
 class Study(ModelNormal):
@@ -67,6 +73,7 @@ class Study(ModelNormal):
         This must be a method because a model may have properties that are
         of type self, this must run after the class is loaded
         """
+        lazy_import()
         return (bool, date, datetime, dict, float, int, list, str, none_type,)  # noqa: E501
 
     _nullable = False
@@ -81,6 +88,7 @@ class Study(ModelNormal):
             openapi_types (dict): The key is attribute name
                 and the value is attribute type.
         """
+        lazy_import()
         return {
             'analyses': ([bool, date, datetime, dict, float, int, list, str, none_type],),  # noqa: E501
             'doi': (str, none_type,),  # noqa: E501
@@ -94,6 +102,7 @@ class Study(ModelNormal):
             'source': (str, none_type,),  # noqa: E501
             'source_id': (str, none_type,),  # noqa: E501
             'source_updated_at': (str, none_type,),  # noqa: E501
+            'year': (int, none_type,),  # noqa: E501
         }
 
     @cached_property
@@ -114,6 +123,7 @@ class Study(ModelNormal):
         'source': 'source',  # noqa: E501
         'source_id': 'source_id',  # noqa: E501
         'source_updated_at': 'source_updated_at',  # noqa: E501
+        'year': 'year',  # noqa: E501
     }
 
     read_only_vars = {
@@ -169,6 +179,7 @@ class Study(ModelNormal):
             source (str, none_type): [optional]  # noqa: E501
             source_id (str, none_type): [optional]  # noqa: E501
             source_updated_at (str, none_type): [optional]  # noqa: E501
+            year (int, none_type): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -262,6 +273,7 @@ class Study(ModelNormal):
             source (str, none_type): [optional]  # noqa: E501
             source_id (str, none_type): [optional]  # noqa: E501
             source_updated_at (str, none_type): [optional]  # noqa: E501
+            year (int, none_type): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
