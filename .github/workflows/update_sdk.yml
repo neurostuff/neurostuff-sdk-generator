@@ -1,5 +1,8 @@
 name: update sdks
-on: [push]
+on:
+  push:
+    branches:
+      - '**'
 jobs:
   update_sdk:
     runs-on: ubuntu-20.04
