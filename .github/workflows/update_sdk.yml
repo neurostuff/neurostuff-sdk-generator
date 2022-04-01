@@ -27,7 +27,7 @@ jobs:
           git checkout ${{ github.base_ref }} 2>/dev/null || git checkout -b ${{ github.base_ref }}
       - name: Generate SDK
         run: |
-          ./generate ${{ matrix.sdk[0] }}
+          ./generate.sh ${{ matrix.sdk[0] }}
       - name: Add and commit changes
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
