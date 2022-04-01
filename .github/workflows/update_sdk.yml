@@ -1,0 +1,33 @@
+name: update sdks
+on: [push]
+jobs:
+  update_sdk:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        sdk: [['neurostore-python-sdk', 'python'], ['neurosynth-compose-python-sdk', 'python'], ['neurostore-typescript-sdk', 'typescript'], ['neurosynth-compose-typescript-sdk', 'typescript']]
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1  
+      - name: Checkout current SDK code
+        uses: actions/checkout@v3
+        with:
+          repository: neurostuff/${{ sdk[0] }}
+          path: ${{ sdk[1] }}/${{ sdk[0] }}
+      - name: Checkout reciprical branch
+        run: |
+          cd ${{ sdk[1] }}/${{ sdk[0] }}
+          git checkout ${{ github.base_ref }} 2>/dev/null || git checkout -b ${{ github.base_ref }}
+      - name: Generate SDK
+        run: |
+          ./generate ${{ sdk[0] }}
+      - name: Add and commit changes
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -m "${{ github.sha }}" -a
+          git push -q https://${{ secrets.SDK_PAT }}@github.com/neurostuff/${{ sdk[0] }}.git ${{ github.base_ref }}
