@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-docker run --rm  \
+docker run --rm  --user $(id -u):$(id -g) \
     -v $PWD:/local openapitools/openapi-generator-cli:v5.4.0 generate \
     -i /local/neurostore-spec/neurostore-openapi.yml \
     -g python \
     -c /local/api_config.json \
-    -t /local/templates/ \
-    -o /local/neurostore-api
+    -o /local/neurostore-sdk \
+    --global-property debugOperations > debug.txt

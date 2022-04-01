@@ -1,6 +1,14 @@
 {
-    "packageName": "neurostore_api",
-    "packageUrl": "https://github.com/neurostuff/neurostore-api",
+    "packageName": "neurostore_sdk",
+    "packageUrl": "https://github.com/neurostuff/neurostore-python-sdk",
     "packageVersion": "0.0.1",
-    "projectName": "neurostore-api"
+    "projectName": "neurostore-sdk",
+    "templateDir": "/local/templates",
+    "files": {
+        "endpoint.mustache": {
+            "folder": "neurostore_sdk",
+            "templateType": "SupportingFiles",
+            "destinationFilename": "endpoint.py"
+        }
+    }
 }
