@@ -33,5 +33,11 @@ jobs:
           cd ${{ matrix.sdk[1] }}/${{ matrix.sdk[0] }}
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git commit -m "${{ github.sha }}" -a
-          git push -q https://${{ secrets.SDK_PAT }}@github.com/neurostuff/${{ matrix.sdk[0] }}.git ${{ github.base_ref }}
+
+          # check to see if there were any changes to the repository.
+          if [ -z $(git ls-files --other --exclude-standard --directory) ]; then
+            echo "No files to be committed!"
+          else
+            git commit -m "${{ github.sha }}" -a
+            git push -q https://${{ secrets.SDK_PAT }}@github.com/neurostuff/${{ matrix.sdk[0] }}.git ${{ github.base_ref }}
+          fi
