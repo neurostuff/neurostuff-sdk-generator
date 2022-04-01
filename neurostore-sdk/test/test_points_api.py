@@ -13,13 +13,13 @@ import unittest
 
 import neurostore_sdk
 from neurostore_sdk.api.points_api import PointsApi  # noqa: E501
-
+from neurostore_sdk.api_client import ApiClient
 
 class TestPointsApi(unittest.TestCase):
     """PointsApi unit test stubs"""
 
     def setUp(self):
-        self.api = PointsApi()  # noqa: E501
+        self.api = PointsApi(api_client=ApiClient())  # noqa: E501
 
     def tearDown(self):
         pass

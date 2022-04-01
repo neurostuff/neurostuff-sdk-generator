@@ -13,13 +13,13 @@ import unittest
 
 import neurostore_sdk
 from neurostore_sdk.api.studysets_api import StudysetsApi  # noqa: E501
-
+from neurostore_sdk.api_client import ApiClient
 
 class TestStudysetsApi(unittest.TestCase):
     """StudysetsApi unit test stubs"""
 
     def setUp(self):
-        self.api = StudysetsApi()  # noqa: E501
+        self.api = StudysetsApi(api_client=ApiClient())  # noqa: E501
 
     def tearDown(self):
         pass
