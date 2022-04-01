@@ -9,6 +9,11 @@
             "folder": "neurostore_sdk",
             "templateType": "SupportingFiles",
             "destinationFilename": "endpoint.py"
+        },
+        "github_actions.mustache": {
+            "folder": ".github/workflows",
+            "templateType": "SupportingFiles",
+            "destinationFilename": "test.yml"
         }
     }
 }

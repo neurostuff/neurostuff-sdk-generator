@@ -2,7 +2,7 @@
 
 generate=$1
 
-if [ -z ${generate} ] || [ ${generate} == "python-neurostore" ]; then
+if [ -z ${generate} ] || [ ${generate} == "python-neurostore" || [ ${generate} == "neurostore-python-sdk" ]; then
 
     echo "generating python-neurostore-sdk..."
     docker run --rm  --user $(id -u):$(id -g) \
@@ -13,7 +13,7 @@ if [ -z ${generate} ] || [ ${generate} == "python-neurostore" ]; then
         -o /local/python/neurostore-sdk
 fi
 
-if [ -z ${generate} ] || [ ${generate} == "typescript-neurostore" ]; then
+if [ -z ${generate} ] || [ ${generate} == "typescript-neurostore" ] || [ ${generate} == "neurostore-typescript-sdk "]; then
 
     echo "generating typescript-neurostore-sdk..."
     docker run --rm  --user $(id -u):$(id -g) \
@@ -23,7 +23,7 @@ if [ -z ${generate} ] || [ ${generate} == "typescript-neurostore" ]; then
         -o /local/typescript/neurostore-sdk
 fi
 
-if [ -z ${generate} ] || [ ${generate} == "python-neurosynth-compose" ]; then
+if [ -z ${generate} ] || [ ${generate} == "python-neurosynth-compose" ] || [ ${generate} == "neurosynth-compose-python-sdk "]; then
 
     echo "generating python-neurosynth-compose-sdk..."
     docker run --rm  --user $(id -u):$(id -g) \
@@ -34,7 +34,7 @@ if [ -z ${generate} ] || [ ${generate} == "python-neurosynth-compose" ]; then
         -o /local/python/neurosynth-compose-sdk
 fi
 
-if [ -z ${generate} ] || [ ${generate} == "typescript-neurosynth-compose" ]; then
+if [ -z ${generate} ] || [ ${generate} == "typescript-neurosynth-compose" ] || [ ${generate} == "neurosynth-compose-typescript-sdk "]; then
 
     echo "generating typescript-neurosynth-compose-sdk..."
     docker run --rm  --user $(id -u):$(id -g) \
