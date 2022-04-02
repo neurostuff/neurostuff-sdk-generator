@@ -24,7 +24,7 @@ jobs:
       - name: Checkout reciprical branch
         run: |
           cd ${{ matrix.sdk[1] }}/${{ matrix.sdk[0] }}
-          git checkout ${{ github.base_ref }} 2>/dev/null || git checkout -b ${{ github.base_ref }}
+          git checkout ${{ github.ref_name }} 2>/dev/null || git checkout -b ${{ github.ref_name }}
       - name: Generate SDK
         run: |
           ./generate.sh ${{ matrix.sdk[0] }}
@@ -34,10 +34,10 @@ jobs:
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-          # check to see if there were any changes to the repository.
-          if [ -z $(git ls-files --other --exclude-standard --directory) ]; then
+          # check to see if there were any changes to the repository and no branches made
+          if [ -z $(git ls-files --other --exclude-standard --directory) ] && [ -z $(git ls-remote --heads origin ${{ github.ref_name }}) ]; then
             echo "No files to be committed!"
           else
             git commit -m "${{ github.sha }}" -a
-            git push -q https://${{ secrets.SDK_PAT }}@github.com/neurostuff/${{ matrix.sdk[0] }}.git ${{ github.base_ref }}
+            git push -q https://${{ secrets.SDK_PAT }}@github.com/neurostuff/${{ matrix.sdk[0] }}.git ${{ github.ref_name }}
           fi
