@@ -21,14 +21,15 @@ jobs:
         with:
           repository: neurostuff/${{ matrix.sdk[0] }}
           path: ${{ matrix.sdk[1] }}/${{ matrix.sdk[0] }}
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        timeout-minutes: 45
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
+      #   timeout-minutes: 45
       - name: Checkout reciprical branch
         run: |
           cd ${{ matrix.sdk[1] }}/${{ matrix.sdk[0] }}
           git fetch
-          git checkout ${{ github.ref_name }} 2>/dev/null || git checkout -b ${{ github.ref_name }}
+          git ls-remote --exit-code --heads origin  ${{ github.ref_name }} || git branch ${{ github.ref_name }}
+          git checkout ${{ github.ref_name }}
       - name: Generate SDK
         run: |
           ./generate.sh ${{ matrix.sdk[0] }}
