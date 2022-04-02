@@ -21,6 +21,9 @@ jobs:
         with:
           repository: neurostuff/${{ matrix.sdk[0] }}
           path: ${{ matrix.sdk[1] }}/${{ matrix.sdk[0] }}
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        timeout-minutes: 30
       - name: Checkout reciprical branch
         run: |
           cd ${{ matrix.sdk[1] }}/${{ matrix.sdk[0] }}
