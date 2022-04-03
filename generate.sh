@@ -28,7 +28,7 @@ if [ -z ${generate} ] || [ ${generate} == "python-neurosynth-compose" ] || [ ${g
     echo "generating python-neurosynth-compose-sdk..."
     docker run --rm  --user $(id -u):$(id -g) \
         -v $PWD:/local openapitools/openapi-generator-cli:v5.4.0 generate \
-        -i /local/neurostore-spec/analysis-specification.yml \
+        -i /local/neurostore-spec/neurosynth-compose-openapi.yml \
         -g python \
         -c /local/neurosynth_compose_python_sdk_config.json \
         -o /local/python/neurosynth-compose-sdk
@@ -39,7 +39,7 @@ if [ -z ${generate} ] || [ ${generate} == "typescript-neurosynth-compose" ] || [
     echo "generating typescript-neurosynth-compose-sdk..."
     docker run --rm  --user $(id -u):$(id -g) \
         -v $PWD:/local openapitools/openapi-generator-cli:v5.4.0 generate \
-        -i /local/neurostore-spec/analysis-specification.yml \
+        -i /local/neurostore-spec/neurosynth-compose-openapi.yml \
         -g typescript-axios \
         -o /local/typescript/neurosynth-compose-sdk
 fi
