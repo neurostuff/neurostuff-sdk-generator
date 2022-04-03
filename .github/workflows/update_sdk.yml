@@ -40,7 +40,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git config --local --unset-all "http.https://github.com/.extraheader"
           # check to see if there were any changes to the repository and no branches made
-          if [ -z $(git ls-files --other --exclude-standard --directory) ]; then
+          if [ -z "$(git ls-files --other --exclude-standard --directory)" ]; then
             echo "No files to be committed!"
             if [ -z $(git ls-remote --heads origin ${{ github.ref_name }}) ]; then
               git push -q https://${{ secrets.SDK_PAT }}@github.com/neurostuff/${{ matrix.sdk[0] }}.git ${{ github.ref_name }}
