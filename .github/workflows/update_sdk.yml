@@ -30,9 +30,9 @@ jobs:
       - name: Generate SDK
         run: |
           ./generate.sh ${{ matrix.sdk[0] }}
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        timeout-minutes: 45
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
+      #   timeout-minutes: 45
       - name: Add and commit changes
         run: |
           cd ${{ matrix.sdk[1] }}/${{ matrix.sdk[0] }}
