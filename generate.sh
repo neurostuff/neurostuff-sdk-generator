@@ -10,7 +10,7 @@ if [ -z ${generate} ] || [ ${generate} == "python-neurostore" ] || [ ${generate}
         -i /local/neurostore-spec/neurostore-openapi.yml \
         -g python \
         -c /local/neurostore_python_sdk_config.json \
-        -o /local/python/neurostore-sdk
+        -o /local/python/neurostore-python-sdk
 fi
 
 if [ -z ${generate} ] || [ ${generate} == "typescript-neurostore" ] || [ ${generate} == "neurostore-typescript-sdk" ]; then
@@ -20,7 +20,7 @@ if [ -z ${generate} ] || [ ${generate} == "typescript-neurostore" ] || [ ${gener
         -v $PWD:/local openapitools/openapi-generator-cli:v5.4.0 generate \
         -i /local/neurostore-spec/neurostore-openapi.yml \
         -g typescript-axios \
-        -o /local/typescript/neurostore-sdk
+        -o /local/typescript/neurostore-typescript-sdk
 fi
 
 if [ -z ${generate} ] || [ ${generate} == "python-neurosynth-compose" ] || [ ${generate} == "neurosynth-compose-python-sdk" ]; then
@@ -31,7 +31,7 @@ if [ -z ${generate} ] || [ ${generate} == "python-neurosynth-compose" ] || [ ${g
         -i /local/neurostore-spec/neurosynth-compose-openapi.yml \
         -g python \
         -c /local/neurosynth_compose_python_sdk_config.json \
-        -o /local/python/neurosynth-compose-sdk
+        -o /local/python/neurosynth-compose-python-sdk
 fi
 
 if [ -z ${generate} ] || [ ${generate} == "typescript-neurosynth-compose" ] || [ ${generate} == "neurosynth-compose-typescript-sdk" ]; then
@@ -41,5 +41,5 @@ if [ -z ${generate} ] || [ ${generate} == "typescript-neurosynth-compose" ] || [
         -v $PWD:/local openapitools/openapi-generator-cli:v5.4.0 generate \
         -i /local/neurostore-spec/neurosynth-compose-openapi.yml \
         -g typescript-axios \
-        -o /local/typescript/neurosynth-compose-sdk
+        -o /local/typescript/neurosynth-compose-typescript-sdk
 fi
