@@ -42,9 +42,9 @@ jobs:
           # put everything in staging
           git add -A
           # check to see if there were any changes to the repository and no branches made
-          if [ -z "$(git ls-files --other --exclude-standard --directory --modified)" ]; then
+          if [ -z "$(git ls-files --other --exclude-standard --directory --unmerged --modified)" ]; then
             echo "No files to be committed!"
-            if [ -z $(git ls-remote --heads origin ${{ github.ref_name }}) ]; then
+            if [ -z "$(git ls-remote --heads origin ${{ github.ref_name }})" ]; then
               git push -q https://${{ secrets.SDK_PAT }}@github.com/neurostuff/${{ matrix.sdk[0] }}.git ${{ github.ref_name }}
             else
               echo "branch already exists and is up to date"
