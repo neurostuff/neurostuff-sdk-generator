@@ -30,9 +30,9 @@ jobs:
       - name: Generate SDK
         run: |
           ./generate.sh ${{ matrix.sdk[0] }}
-      # - name: Setup tmate session
-      #   uses: mxschmitt/action-tmate@v3
-      #   timeout-minutes: 45
+      #  - name: Setup tmate session
+      #    uses: mxschmitt/action-tmate@v3
+      #    timeout-minutes: 45
       - name: Add and commit changes
         run: |
           cd ${{ matrix.sdk[1] }}/${{ matrix.sdk[0] }}
@@ -40,14 +40,14 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git config --local --unset-all "http.https://github.com/.extraheader"
           # check to see if there were any changes to the repository and no branches made
-          if [ -z "$(git ls-files --other --exclude-standard --directory --modified)" ]; then
+          if [ -z "$(git ls-files --others --exclude-standard --directory --unmerged --modified)" ]; then
             echo "No files to be committed!"
-            if [ -z $(git ls-remote --heads origin ${{ github.ref_name }}) ]; then
+            if [ -z "$(git ls-remote --heads origin ${{ github.ref_name }})" ]; then
               git push -q https://${{ secrets.SDK_PAT }}@github.com/neurostuff/${{ matrix.sdk[0] }}.git ${{ github.ref_name }}
             else
               echo "branch already exists and is up to date"
             fi
           else
-            git commit -m "${{ github.sha }}" -a
+            git add -A && git commit -m "${{ github.sha }}" -a
             git push -q https://${{ secrets.SDK_PAT }}@github.com/neurostuff/${{ matrix.sdk[0] }}.git ${{ github.ref_name }}
           fi
