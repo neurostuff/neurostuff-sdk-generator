@@ -48,6 +48,6 @@ jobs:
               echo "branch already exists and is up to date"
             fi
           else
-            git commit -m "${{ github.sha }}" -a
+            git add -A && git commit -m ${{ github.sha }}" -a
             git push -q https://${{ secrets.SDK_PAT }}@github.com/neurostuff/${{ matrix.sdk[0] }}.git ${{ github.ref_name }}
           fi
