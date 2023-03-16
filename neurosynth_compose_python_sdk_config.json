@@ -5,11 +5,6 @@
     "projectName": "neurosynth-compose-sdk",
     "templateDir": "/local/python_sdk_templates",
     "files": {
-        "endpoint.mustache": {
-            "folder": "neurosynth_compose_sdk",
-            "templateType": "SupportingFiles",
-            "destinationFilename": "endpoint.py"
-        },
         "github_actions.mustache": {
             "folder": ".github/workflows",
             "templateType": "SupportingFiles",
