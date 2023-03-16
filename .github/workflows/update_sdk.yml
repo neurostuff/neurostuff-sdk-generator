@@ -80,9 +80,9 @@ jobs:
         with:
           openapi-file: neurostore-spec/${{ matrix.openapi[1] }}
           config-file: ${{ matrix.openapi[2] }}
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        timeout-minutes: 45
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
+      #   timeout-minutes: 45
       - name: move git dir
         run: |
           mv ${{ matrix.openapi[0] }}-tmp/.git ${{ matrix.openapi[0] }}/
