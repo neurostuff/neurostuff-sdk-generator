@@ -1,4 +1,4 @@
 {
-    "project_name_override": "neurostore-sdk",
+    "project_name_override": "neurostore-python-sdk",
     "package_name_override": "neurostore_sdk"
 }
