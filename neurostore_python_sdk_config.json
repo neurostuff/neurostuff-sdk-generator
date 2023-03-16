@@ -1,19 +1,4 @@
 {
-    "packageName": "neurostore_sdk",
-    "packageUrl": "https://github.com/neurostuff/neurostore-python-sdk",
-    "packageVersion": "0.0.1",
-    "projectName": "neurostore-sdk",
-    "templateDir": "/local/python_sdk_templates",
-    "files": {
-        "endpoint.mustache": {
-            "folder": "neurostore_sdk",
-            "templateType": "SupportingFiles",
-            "destinationFilename": "endpoint.py"
-        },
-        "github_actions.mustache": {
-            "folder": ".github/workflows",
-            "templateType": "SupportingFiles",
-            "destinationFilename": "test.yml"
-        }
-    }
+    "project_name_override": "neurostore-sdk",
+    "package_name_override": "neurostore_sdk"
 }

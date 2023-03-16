@@ -1,19 +1,4 @@
 {
-    "packageName": "neurosynth_compose_sdk",
-    "packageUrl": "https://github.com/neurostuff/neurosynth-compose-python-sdk",
-    "packageVersion": "0.0.1",
-    "projectName": "neurosynth-compose-sdk",
-    "templateDir": "/local/python_sdk_templates",
-    "files": {
-        "endpoint.mustache": {
-            "folder": "neurosynth_compose_sdk",
-            "templateType": "SupportingFiles",
-            "destinationFilename": "endpoint.py"
-        },
-        "github_actions.mustache": {
-            "folder": ".github/workflows",
-            "templateType": "SupportingFiles",
-            "destinationFilename": "test.yml"
-        }
-    }
+    "project_name_override": "neurosynth-compose-sdk",
+    "package_name_override": "neurosynth_compose_sdk"
 }
