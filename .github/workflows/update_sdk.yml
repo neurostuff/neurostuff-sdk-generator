@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        openapi: [['neurostore-python-sdk', 'neurostore-openapi.yml', 'neurostore_python_sdk_config.yml'], ['neurosynth-compose-python-sdk', 'neurosynth-compose-openapi.yml', 'neurosynth_compose_python_sdk_config.json']]
+        openapi: [['neurostore-python-sdk', 'neurostore-openapi.yml', 'neurostore_python_sdk_config.json'], ['neurosynth-compose-python-sdk', 'neurosynth-compose-openapi.yml', 'neurosynth_compose_python_sdk_config.json']]
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -80,6 +80,9 @@ jobs:
         with:
           openapi-file: neurostore-spec/${{ matrix.openapi[1] }}
           config-file: ${{ matrix.openapi[2] }}
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        timeout-minutes: 45
       - name: move git dir
         run: |
           mv ${{ matrix.openapi[0] }}-tmp/.git ${{ matrix.openapi[0] }}/
