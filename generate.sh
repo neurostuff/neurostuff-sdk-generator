@@ -6,7 +6,7 @@ if [ -z ${generate} ] || [ ${generate} == "python-neurostore" ] || [ ${generate}
 
     echo "generating python-neurostore-sdk..."
     docker run --rm  --user $(id -u):$(id -g) \
-        -v $PWD:/local openapitools/openapi-generator-cli:706452c26389 generate \
+        -v $PWD:/local openapitools/openapi-generator-cli:latest generate \
         -i /local/neurostore-spec/neurostore-openapi.yml \
         -g python \
         -c /local/neurostore_python_nextgen_sdk_config.json \
@@ -27,7 +27,7 @@ if [ -z ${generate} ] || [ ${generate} == "python-neurosynth-compose" ] || [ ${g
 
     echo "generating python-neurosynth-compose-sdk..."
     docker run --rm  --user $(id -u):$(id -g) \
-        -v $PWD:/local openapitools/openapi-generator-cli:706452c26389 generate \
+        -v $PWD:/local openapitools/openapi-generator-cli:latest generate \
         -i /local/neurostore-spec/neurosynth-compose-openapi.yml \
         -g python \
         -c /local/neurosynth_compose_python_nextgen_sdk_config.json \
