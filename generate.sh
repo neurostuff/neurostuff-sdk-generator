@@ -6,7 +6,7 @@ if [ -z ${generate} ] || [ ${generate} == "python-neurostore" ] || [ ${generate}
 
     echo "generating python-neurostore-sdk..."
     docker run --rm  --user $(id -u):$(id -g) \
-        -v $PWD:/local openapitools/openapi-generator-cli:v7.11.0 generate \
+        -v $PWD:/local openapitools/openapi-generator-cli:v7.17.0 generate \
         -i /local/neurostore-spec/neurostore-openapi.yml \
         -g python \
         -c /local/neurostore_python_nextgen_sdk_config.json \
@@ -17,7 +17,7 @@ if [ -z ${generate} ] || [ ${generate} == "typescript-neurostore" ] || [ ${gener
 
     echo "generating typescript-neurostore-sdk..."
     docker run --rm  --user $(id -u):$(id -g) \
-        -v $PWD:/local openapitools/openapi-generator-cli:v7.11.0 generate \
+        -v $PWD:/local openapitools/openapi-generator-cli:v7.17.0 generate \
         -i /local/neurostore-spec/neurostore-openapi.yml \
         -g typescript-axios \
         -o /local/typescript/neurostore-typescript-sdk
@@ -27,7 +27,7 @@ if [ -z ${generate} ] || [ ${generate} == "python-neurosynth-compose" ] || [ ${g
 
     echo "generating python-neurosynth-compose-sdk..."
     docker run --rm  --user $(id -u):$(id -g) \
-        -v $PWD:/local openapitools/openapi-generator-cli:v7.11.0 generate \
+        -v $PWD:/local openapitools/openapi-generator-cli:v7.17.0 generate \
         -i /local/neurostore-spec/neurosynth-compose-openapi.yml \
         -g python \
         -c /local/neurosynth_compose_python_nextgen_sdk_config.json \
@@ -38,7 +38,7 @@ if [ -z ${generate} ] || [ ${generate} == "typescript-neurosynth-compose" ] || [
 
     echo "generating typescript-neurosynth-compose-sdk..."
     docker run --rm  --user $(id -u):$(id -g) \
-        -v $PWD:/local openapitools/openapi-generator-cli:v7.11.0 generate \
+        -v $PWD:/local openapitools/openapi-generator-cli:v7.17.0 generate \
         -i /local/neurostore-spec/neurosynth-compose-openapi.yml \
         -g typescript-axios \
         -o /local/typescript/neurosynth-compose-typescript-sdk
