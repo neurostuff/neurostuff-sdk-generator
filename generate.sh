@@ -20,7 +20,8 @@ if [ -z ${generate} ] || [ ${generate} == "typescript-neurostore" ] || [ ${gener
         -v $PWD:/local openapitools/openapi-generator-cli:v7.17.0 generate \
         -i /local/neurostore-spec/neurostore-openapi.yml \
         -g typescript-axios \
-        -o /local/typescript/neurostore-typescript-sdk
+        -o /local/typescript/neurostore-typescript-sdk \
+        --openapi-normalizer KEEP_ONLY_FIRST_TAG_IN_OPERATION=true
 fi
 
 if [ -z ${generate} ] || [ ${generate} == "python-neurosynth-compose" ] || [ ${generate} == "neurosynth-compose-python-sdk" ]; then
@@ -41,5 +42,6 @@ if [ -z ${generate} ] || [ ${generate} == "typescript-neurosynth-compose" ] || [
         -v $PWD:/local openapitools/openapi-generator-cli:v7.17.0 generate \
         -i /local/neurostore-spec/neurosynth-compose-openapi.yml \
         -g typescript-axios \
-        -o /local/typescript/neurosynth-compose-typescript-sdk
+        -o /local/typescript/neurosynth-compose-typescript-sdk \
+        --openapi-normalizer KEEP_ONLY_FIRST_TAG_IN_OPERATION=true
 fi
