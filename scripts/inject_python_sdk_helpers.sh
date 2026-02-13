@@ -336,6 +336,23 @@ PYCODE
 
 sed -i "s/__PACKAGE_NAME__/${package_name}/g" "${package_dir}/auth.py" "${package_dir}/sdk.py"
 
+models_dir="${package_dir}/models"
+if [ -d "${models_dir}" ]; then
+    while IFS= read -r -d '' model_file; do
+        python3 - <<'PYCODE' "${model_file}"
+import pathlib
+import re
+import sys
+
+path = pathlib.Path(sys.argv[1])
+text = path.read_text(encoding="utf-8")
+updated = re.sub(r"\bbytearray\b", "bytes", text)
+if updated != text:
+    path.write_text(updated, encoding="utf-8")
+PYCODE
+    done < <(find "${models_dir}" -type f -name "*.py" -print0)
+fi
+
 readme_path="${sdk_dir}/README.md"
 if [ -f "${readme_path}" ]; then
     tmp_readme="$(mktemp)"
