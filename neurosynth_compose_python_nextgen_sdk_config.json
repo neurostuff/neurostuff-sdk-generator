@@ -1,0 +1,9 @@
+{
+    "packageName": "neurosynth_compose_sdk",
+    "packageUrl": "https://github.com/neurostuff/neurosynth-compose-python-sdk",
+    "packageVersion": "0.0.1",
+    "projectName": "neurosynth-compose-sdk",
+    "lazyImports": true,
+    "hideGenerationTimestamp": true,
+    "library": "urllib3"
+}
