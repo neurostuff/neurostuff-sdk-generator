@@ -1,0 +1,97 @@
+name: Release SDKs
+
+on:
+  workflow_run:
+    workflows:
+      - update sdks
+    types:
+      - completed
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      sdk:
+        description: 'Which SDK(s) to release'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - neurostore-python-sdk
+          - neurosynth-compose-python-sdk
+
+jobs:
+  publish:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write  # required for PyPI Trusted Publisher
+    strategy:
+      matrix:
+        include:
+          - sdk: neurostore-python-sdk
+            repo: neurostuff/neurostore-python-sdk
+            pypi_package: neurostore-sdk
+          - sdk: neurosynth-compose-python-sdk
+            repo: neurostuff/neurosynth-compose-python-sdk
+            pypi_package: neurosynth-compose-sdk
+    steps:
+      - name: Checkout SDK repo
+        if: ${{ inputs.sdk == '' || inputs.sdk == 'all' || inputs.sdk == matrix.sdk }}
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ matrix.repo }}
+          token: ${{ secrets.SDK_PAT }}
+          fetch-depth: 0
+
+      - name: Read package version and check if already released
+        if: ${{ inputs.sdk == '' || inputs.sdk == 'all' || inputs.sdk == matrix.sdk }}
+        id: version
+        run: |
+          VERSION=$(grep "^VERSION" setup.py | cut -d'"' -f2)
+          TAG="v${VERSION}"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
+          TAG_EXISTS=false
+          PYPI_EXISTS=false
+
+          if git ls-remote --tags origin "$TAG" | grep -q "$TAG"; then
+            echo "Tag $TAG already exists in repo"
+            TAG_EXISTS=true
+          fi
+
+          PYPI_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            "https://pypi.org/pypi/${{ matrix.pypi_package }}/${VERSION}/json")
+          if [ "$PYPI_STATUS" == "200" ]; then
+            echo "Version ${VERSION} already exists on PyPI"
+            PYPI_EXISTS=true
+          fi
+
+          [ "$TAG_EXISTS" == "false" ] && echo "should_tag=true" >> "$GITHUB_OUTPUT" || echo "should_tag=false" >> "$GITHUB_OUTPUT"
+          [ "$PYPI_EXISTS" == "false" ] && echo "should_publish=true" >> "$GITHUB_OUTPUT" || echo "should_publish=false" >> "$GITHUB_OUTPUT"
+
+      - name: Create tag and GitHub release
+        if: ${{ steps.version.outputs.should_tag == 'true' && (inputs.sdk == '' || inputs.sdk == 'all' || inputs.sdk == matrix.sdk) }}
+        env:
+          GH_TOKEN: ${{ secrets.SDK_PAT }}
+        run: |
+          TAG="v${{ steps.version.outputs.version }}"
+          git tag "$TAG"
+          git push origin "$TAG"
+          gh release create "$TAG" \
+            --repo ${{ matrix.repo }} \
+            --title "${{ matrix.sdk }} v${{ steps.version.outputs.version }}" \
+            --notes "Generated from neurostuff-sdk-generator"
+
+      - name: Build package
+        if: ${{ steps.version.outputs.should_publish == 'true' && (inputs.sdk == '' || inputs.sdk == 'all' || inputs.sdk == matrix.sdk) }}
+        run: |
+          pip install build
+          python -m build --outdir dist/
+
+      - name: Publish to PyPI
+        if: ${{ steps.version.outputs.should_publish == 'true' && (inputs.sdk == '' || inputs.sdk == 'all' || inputs.sdk == matrix.sdk) }}
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist/
