@@ -10,13 +10,7 @@ python_helper_script="${script_dir}/scripts/inject_python_sdk_helpers.sh"
 
 get_spec_version() {
     local spec_file="$1"
-    python3 -c "
-from ruamel.yaml import YAML
-yaml = YAML()
-with open('${spec_file}') as f:
-    spec = yaml.load(f)
-print(spec['info']['version'])
-"
+    grep -m1 "^  version:" "${spec_file}" | sed "s/^  version: //; s/['\"]//g; s/ *$//"
 }
 
 neurostore_version="${version:-$(get_spec_version "${script_dir}/neurostore-spec/neurostore-openapi.yml")}"
