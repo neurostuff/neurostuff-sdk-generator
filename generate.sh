@@ -21,6 +21,12 @@ run_generator() {
         -v "${script_dir}:/local" "${generator_image}" generate "$@"
 }
 
+clean_python_sdk() {
+    local sdk_dir="$1"
+    local package_name="$2"
+    rm -rf "${sdk_dir}/${package_name}/models" "${sdk_dir}/${package_name}/api" "${sdk_dir}/test"
+}
+
 inject_python_helpers() {
     local sdk_dir="$1"
     local package_name="$2"
@@ -30,6 +36,7 @@ inject_python_helpers() {
 
 if [ -z "${generate}" ] || [ "${generate}" == "python-neurostore" ] || [ "${generate}" == "neurostore-python-sdk" ]; then
     echo "generating python-neurostore-sdk (v${neurostore_version})..."
+    clean_python_sdk "${script_dir}/python/neurostore-python-sdk" "neurostore_sdk"
     run_generator \
         -i /local/neurostore-spec/neurostore-openapi.yml \
         -g python \
@@ -53,6 +60,7 @@ fi
 
 if [ -z "${generate}" ] || [ "${generate}" == "python-neurosynth-compose" ] || [ "${generate}" == "neurosynth-compose-python-sdk" ]; then
     echo "generating python-neurosynth-compose-sdk (v${compose_version})..."
+    clean_python_sdk "${script_dir}/python/neurosynth-compose-python-sdk" "neurosynth_compose_sdk"
     run_generator \
         -i /local/neurostore-spec/neurosynth-compose-openapi.yml \
         -g python \
