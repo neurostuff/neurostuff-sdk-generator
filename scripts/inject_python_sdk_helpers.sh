@@ -346,11 +346,81 @@ import sys
 
 path = pathlib.Path(sys.argv[1])
 text = path.read_text(encoding="utf-8")
-updated = re.sub(r"\bbytearray\b", "bytes", text)
+updated = text
+
+# Fix 1: bytearray -> bytes (existing fix)
+updated = re.sub(r"\bbytearray\b", "bytes", updated)
+
+# Fix 2: "if self.X:" -> "if self.X is not None:" in to_dict() methods.
+# Bare truthiness checks on OneOf wrapper fields call __len__ and raise TypeError.
+updated = re.sub(
+    r'^(\s+if self\.[a-zA-Z_]+):$',
+    r'\1 is not None:',
+    updated,
+    flags=re.MULTILINE,
+)
+
+# Fix 3: "if _item_X:" -> "if _item_X is not None:" in to_dict() list loops.
+updated = re.sub(
+    r'\bif (_item_[a-zA-Z_]+):',
+    r'if \1 is not None:',
+    updated,
+)
+
+# Fix 4: Remove all fields from excluded_fields in to_dict().
+# The generator marks readOnly fields as excluded, which prevents them from
+# appearing in to_dict() output even when the server returns them in responses.
+updated = re.sub(
+    r'excluded_fields: Set\[str\] = set\(\[[^\]]*\]\)',
+    'excluded_fields: Set[str] = set([])',
+    updated,
+    flags=re.DOTALL,
+)
+
 if updated != text:
     path.write_text(updated, encoding="utf-8")
 PYCODE
     done < <(find "${models_dir}" -type f -name "*.py" -print0)
+fi
+
+# Fix 5: api_client.py getheaders() returns http.client.HTTPMessage during VCR
+# playback, which pydantic rejects as Dict. Convert to plain dict explicitly.
+api_client_file="${package_dir}/api_client.py"
+if [ -f "${api_client_file}" ]; then
+    python3 - <<'PYCODE' "${api_client_file}"
+import pathlib
+import sys
+
+path = pathlib.Path(sys.argv[1])
+text = path.read_text(encoding="utf-8")
+old = "            headers = response_data.getheaders(),"
+new = (
+    "            raw_headers = response_data.getheaders(),\n"
+    "            headers = dict(raw_headers) if raw_headers is not None else None,"
+)
+# The old pattern has headers= inside ApiResponse(). Fix it properly:
+old2 = (
+    "        return ApiResponse(\n"
+    "            status_code = response_data.status,\n"
+    "            data = return_data,\n"
+    "            headers = response_data.getheaders(),\n"
+    "            raw_data = response_data.data\n"
+    "        )"
+)
+new2 = (
+    "        raw_headers = response_data.getheaders()\n"
+    "        headers = dict(raw_headers) if raw_headers is not None else None\n"
+    "        return ApiResponse(\n"
+    "            status_code = response_data.status,\n"
+    "            data = return_data,\n"
+    "            headers = headers,\n"
+    "            raw_data = response_data.data\n"
+    "        )"
+)
+updated = text.replace(old2, new2)
+if updated != text:
+    path.write_text(updated, encoding="utf-8")
+PYCODE
 fi
 
 readme_path="${sdk_dir}/README.md"
