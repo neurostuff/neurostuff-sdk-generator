@@ -5,7 +5,7 @@ set -euo pipefail
 generate="${1:-}"
 version="${2:-}"
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-generator_image="openapitools/openapi-generator-cli:v7.17.0"
+generator_image="openapitools/openapi-generator-cli:v7.27.0"
 python_helper_script="${script_dir}/scripts/inject_python_sdk_helpers.sh"
 
 get_spec_version() {
@@ -24,7 +24,7 @@ run_generator() {
 clean_python_sdk() {
     local sdk_dir="$1"
     local package_name="$2"
-    rm -rf "${sdk_dir}/${package_name}/models" "${sdk_dir}/${package_name}/api" "${sdk_dir}/test"
+    rm -rf "${sdk_dir}/${package_name}/models" "${sdk_dir}/${package_name}/api" "${sdk_dir}/test" "${sdk_dir}/setup.py"
 }
 
 inject_python_helpers() {
@@ -43,6 +43,7 @@ if [ -z "${generate}" ] || [ "${generate}" == "python-neurostore" ] || [ "${gene
         -c /local/neurostore_python_nextgen_sdk_config.json \
         -o /local/python/neurostore-python-sdk \
         -t /local/templates/python \
+        --openapi-generator-ignore-list setup.py \
         --additional-properties packageVersion="${neurostore_version}" \
         --openapi-normalizer REMOVE_X_INTERNAL=true,KEEP_ONLY_FIRST_TAG_IN_OPERATION=true
     inject_python_helpers "${script_dir}/python/neurostore-python-sdk" "neurostore_sdk"
@@ -67,6 +68,7 @@ if [ -z "${generate}" ] || [ "${generate}" == "python-neurosynth-compose" ] || [
         -c /local/neurosynth_compose_python_nextgen_sdk_config.json \
         -o /local/python/neurosynth-compose-python-sdk \
         -t /local/templates/python \
+        --openapi-generator-ignore-list setup.py \
         --additional-properties packageVersion="${compose_version}" \
         --openapi-normalizer REMOVE_X_INTERNAL=true,KEEP_ONLY_FIRST_TAG_IN_OPERATION=true
     inject_python_helpers "${script_dir}/python/neurosynth-compose-python-sdk" "neurosynth_compose_sdk"
