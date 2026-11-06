@@ -1,5 +1,7 @@
 {
     "packageName": "neurostore_sdk",
+    "gitUserId": "neurostuff",
+    "gitRepoId": "neurostore-python-sdk",
     "packageUrl": "https://github.com/neurostuff/neurostore-python-sdk",
     "packageVersion": "0.0.1",
     "projectName": "neurostore-sdk",

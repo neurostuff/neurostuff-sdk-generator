@@ -5,7 +5,7 @@ set -euo pipefail
 generate="${1:-}"
 version="${2:-}"
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-generator_image="openapitools/openapi-generator-cli:v7.17.0"
+generator_image="openapitools/openapi-generator-cli:v7.27.0"
 python_helper_script="${script_dir}/scripts/inject_python_sdk_helpers.sh"
 
 get_spec_version() {
