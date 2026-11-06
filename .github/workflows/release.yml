@@ -40,7 +40,7 @@ jobs:
     steps:
       - name: Checkout SDK repo
         if: ${{ inputs.sdk == '' || inputs.sdk == 'all' || inputs.sdk == matrix.sdk }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: ${{ matrix.repo }}
           token: ${{ secrets.SDK_PAT }}
@@ -84,6 +84,12 @@ jobs:
             --repo ${{ matrix.repo }} \
             --title "${{ matrix.sdk }} v${{ steps.version.outputs.version }}" \
             --notes "Generated from neurostuff-sdk-generator"
+
+      - name: Set up Python
+        if: ${{ steps.version.outputs.should_publish == 'true' && (inputs.sdk == '' || inputs.sdk == 'all' || inputs.sdk == matrix.sdk) }}
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
 
       - name: Build package
         if: ${{ steps.version.outputs.should_publish == 'true' && (inputs.sdk == '' || inputs.sdk == 'all' || inputs.sdk == matrix.sdk) }}
