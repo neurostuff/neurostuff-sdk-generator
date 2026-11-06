@@ -24,7 +24,9 @@ run_generator() {
 clean_python_sdk() {
     local sdk_dir="$1"
     local package_name="$2"
-    rm -rf "${sdk_dir}/${package_name}/models" "${sdk_dir}/${package_name}/api" "${sdk_dir}/test"
+    rm -rf "${sdk_dir}/${package_name}/models" "${sdk_dir}/${package_name}/api" "${sdk_dir}/test" "${sdk_dir}/setup.py"
+    # --ignore-file-override has no effect in v7.27.0; the generator only reads the output dir's ignore file
+    cp "${script_dir}/python.openapi-generator-ignore" "${sdk_dir}/.openapi-generator-ignore"
 }
 
 inject_python_helpers() {

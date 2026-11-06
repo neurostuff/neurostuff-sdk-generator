@@ -7,5 +7,6 @@
     "projectName": "neurosynth-compose-sdk",
     "lazyImports": true,
     "hideGenerationTimestamp": true,
-    "library": "urllib3"
+    "library": "urllib3",
+    "buildSystem": "hatchling"
 }

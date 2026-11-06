@@ -50,7 +50,7 @@ jobs:
         if: ${{ inputs.sdk == '' || inputs.sdk == 'all' || inputs.sdk == matrix.sdk }}
         id: version
         run: |
-          VERSION=$(grep "^VERSION" setup.py | cut -d'"' -f2)
+          VERSION=$(grep -m1 "^version = " pyproject.toml | cut -d'"' -f2)
           TAG="v${VERSION}"
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
 
